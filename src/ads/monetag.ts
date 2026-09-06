@@ -1,5 +1,5 @@
 /**
- * Monetag ad integration — modular manager for the three configured zones.
+ * Monetag ad integration — modular manager for the four configured zones.
  *
  * IMPORTANT — documented Monetag limitations (verified against Monetag's help center):
  * - Monetag's website ad formats (Vignette Banner, In-Page Push, Interstitial) are
@@ -18,13 +18,15 @@
  *      a zone is asked to unmount — for example, hiding the top IPP during gameplay.
  *      Monetag does not document a "hide" API; whether the ad also disappears is
  *      up to Monetag's own script. Any resulting console noise does not block gameplay.
- *   3. Never fakes clicks, close events, or impressions. Never uses MutationObserver
+ *   3. Keeps the OnClick zone loaded for the page session so Monetag can handle
+ *      its click-triggered behavior and frequency rules itself.
+ *   4. Never fakes clicks, close events, or impressions. Never uses MutationObserver
  *      or timers to simulate ad completion.
  *
  * To change or add zones later, edit the ZONES record — no other file needs updating.
  */
 
-export type AdSlot = 'topBanner' | 'bottomBanner' | 'gameEnd';
+export type AdSlot = 'topBanner' | 'bottomBanner' | 'gameEnd' | 'onClick';
 
 interface ZoneConfig {
   zoneId: string;
@@ -36,6 +38,7 @@ export const ZONES: Record<AdSlot, ZoneConfig> = {
   topBanner:    { zoneId: '11734150', src: 'https://nap5k.com/tag.min.js' },
   bottomBanner: { zoneId: '11734155', src: 'https://nap5k.com/tag.min.js' },
   gameEnd:      { zoneId: '11734157', src: 'https://nap5k.com/tag.min.js' },
+  onClick:      { zoneId: '11736646', src: 'https://al5sm.com/tag.min.js' },
 };
 
 const DATA_ATTR = 'data-monetag-zone';

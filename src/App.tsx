@@ -171,6 +171,8 @@ export default function App() {
   const showTopBanner = status === 'ready';
   const showBottomBanner = status === 'ready' || status === 'playing' || status === 'paused';
   const showGameEndAd = finished;
+  // OnClick is page-level; Monetag handles the click trigger and frequency.
+  const showOnClickAd = true;
 
   return <div className="app">
     <header className="site-header"><div className="header-inner page-shell">
@@ -223,5 +225,6 @@ export default function App() {
     <AdSlot slot="topBanner" active={showTopBanner} />
     <AdSlot slot="bottomBanner" active={showBottomBanner} />
     <AdSlot slot="gameEnd" active={showGameEndAd} />
+    <AdSlot slot="onClick" active={showOnClickAd} />
   </div>;
 }
